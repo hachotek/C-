@@ -1,0 +1,47 @@
+#include <conio.h>
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+typedef struct Examen
+{
+	int matricula;
+	int nota;
+}Examen;
+
+
+int main ()
+{
+	
+	//DECLARACION DE VARIABLES
+	Examen exa; // varobale struct tipo examen
+	int maTbus; // variable a matricula a buscar
+	
+	// ABRO EL ARCHIVO
+	FILE * archivo = fopen ("Parcial1.dat","rb");
+	if (archivo == NULL)
+		cout << "NOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!   " << endl; // si esta vacio grito 
+	else
+		{
+			cout << "Ingrese la matriula a buscar "<< endl;
+			cin >> maTbus;
+			
+			fread(&exa,sizeof(Examen),1,archivo); // leo un archivo
+			
+			while (!feof(archivo) && exa.matricula != maTbus) // lo busco comparando si lo encuentro y si no llegue al final
+				fread(&exa,sizeof(Examen),1,archivo); 	
+				
+			if (feof(archivo)) // si llegue la final
+				cout << "No la encontre ! No esta esa matricula o el alumno destruyo nuestro archivo ... " << endl; // no lo encontre
+				else // sino
+					cout << "Lo encontre , la matricula : " << exa.matricula << "Tiene una Nota de : " << exa.nota ; // lo encontre!!						
+		}
+
+	
+	fclose(archivo);
+	
+	
+	
+	return 0;
+}
