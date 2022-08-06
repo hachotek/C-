@@ -1,0 +1,51 @@
+#include <iostream>
+#include <stdio.h>
+
+
+using namespace std;
+
+typedef struct Examen
+{
+	int matricula;
+	int nota;
+	
+}Examen;
+
+
+int main ()
+{
+	
+	//DECLARACION DE VARIABLES
+	char nombre[15];
+	Examen exa;
+	FILE* archivo; // declaro variable archivo
+	
+	cout << "Ingrese el nombre del archivo :  (con .dat)" << endl;
+	cin >> nombre;
+	
+	archivo = fopen(nombre,"wb"); // Le asigno a la variable archivo el nombre parcial dat y le mando un examen.
+	
+	if (archivo == NULL)
+		cout << "No se pudo abrir el archivo , usted puede gritar " << endl;
+	
+	//pido los datos a guardar los archivos
+	cout << "Ingrese una matricula Matricula , 0 para salir. : " << endl;
+	cin >> exa.matricula;
+		while (exa.matricula!=0)
+			{
+			
+				cout << "Nota : " << endl; // pido la nota
+				cin >> exa.nota; // guardo la nota en el struct
+				
+				fwrite (&exa,sizeof(Examen),1,archivo); // escribo en el archivo 1 examen
+				
+				cout << "Ingrese una matricula Matricula , 0 para salir. : " << endl; // pido otra matricula
+				cin >> exa.matricula; // cargo matricula y vuelvo a seguir escribiendo hasta que salga del ciclo-.
+				
+			}
+		
+	fclose(archivo); // cierro el archivo-
+
+	//declaro getch y return
+	return 0;
+}
