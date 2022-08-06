@@ -1,0 +1,50 @@
+#include <iostream>
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+typedef struct Examen
+{
+	int mat;
+	int nota;	
+}Examen;
+
+
+int main ()
+{
+	
+	
+	//DECLARACION DE VARIABLES
+	Examen exa; // variable struct examen
+	char nombre[15];
+	FILE* archivo; // declaro variable tipo archivoparcial 
+	
+	cout << "Ingrese el nombre del archivo que queire mostrar con el . dat : " << endl;
+	cin >> nombre;
+	archivo = fopen (nombre,"rb"); // abro el archivo
+	
+	if (archivo == NULL) // si no lo encuentra grito.
+		cout << "GRITE , El archivo no existe " << endl; // mensaje de alerta
+	else // sino
+		{
+			
+			fread(&exa,sizeof(Examen),1,archivo); // leo amigo
+			while (!feof(archivo))
+				{
+					cout << "Matricula: " << exa.mat << " - Nota: " << exa.nota << endl; // muestro la nota
+					fread(&exa,sizeof(Examen),1,archivo); // vuelvo a leeer
+					
+				}
+			
+		}
+	
+	
+	
+	
+	fclose(archivo); // cierro el archivo
+	
+	
+	
+	return 0;
+}
