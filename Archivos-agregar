@@ -1,0 +1,58 @@
+#include <conio.h>
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+typedef struct Examen{
+	int matricula;
+	int nota;
+}Examen;
+
+
+
+
+
+int main ()
+{
+	
+	//DECLARACION DE VARIABLES
+	Examen exa;
+	char nombre[15];
+	FILE * archivo;
+	
+	//PIDO EL NOMBRE DEL ARCHIVO	
+	cout <<  "Ingrese el nombre del archivo a modificar : ( con . dat) " << endl;
+	cin >> nombre;
+	
+	
+	archivo = fopen(nombre,"ab");//abro el archivo
+	if (archivo == NULL)
+		cout << "OH NO  , EL ARCHIVO ESTA VACIO!!!! " << endl;
+		else
+		{
+			cout << "Ingrese la matricula a agregar , 0 para salir: " << endl;
+			cin >> exa.matricula;
+			while (exa.matricula!=0)
+				{
+					cout << "Ingrese la Nota para la matricula ingresada: " << endl;
+					cin >> exa.nota;
+					
+					fwrite(&exa,sizeof(Examen),1,archivo);// escribo
+					
+					cout << "Ingrese la matricula a agregar , 0 para salir: " << endl;
+					cin >> exa.matricula;
+				}
+		}
+	
+	
+	
+	fclose(archivo); // cierro el archivo
+	
+	
+	
+	
+	
+	
+	return 0;
+}
