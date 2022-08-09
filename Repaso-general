@@ -1,0 +1,181 @@
+//3)Escriba un programa que ingresando en un vector N números enteros, muestre por pantalla la sumatoria de todos ellos.
+
+//4)Escriba una función que recibe un vector N números enteros ordenados, su longitud y un valor numérico, 
+//intercale ese valor en el vector, actualizando su longitud. Suponer que el vector que se recibe no está completo
+
+//5) Escriba una función que recibe un vector N números enteros desordenados, su longitud, devuelva la posición del mayor de ellos.
+
+// Realizar un menu que tenga 1) Inicializar vector en ceros , 2) Ingresar numeros al vector , 3) Mostrar el vector , 4) Ejercicio 3 , 5) ejercicio 4 , 6 ) ejercicio 5 , 7) opcion 0 salir.
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+#define tam 5
+
+using namespace std;
+
+// ENCABEZADO DE FUNCIONES
+int menu (void); 
+void fInicializar(int vecNum[]); // inicializo el vector le mando como parametros el vector
+void fllenar(int vecNum[],int cantN); // inicializo la funcion de llenado le mando el vector y la cantidad de numeros a ingresar
+void fmostrar(int vecNum[]); // incializo la funcion de mostrar el contenido del vector le mando como parametros el vector
+void fsumar(int vecNum[]); // le mando el vector
+void finsertar(int vecNUm[],int numaux); // considero no mandar el tamanio del vector como parametro ya que esta definido como una variable globaly seria una perdida de recursos.
+int fmayor(int vecNum[]); // le mando como parametro el vector ya que solamente va a tirar un cartel que diga en que posicion esta el mayor.
+
+// FUNCION MAIN
+int main ()
+{
+	
+	//Declaracion de variables
+	int opc,cantN,numaux;
+	int vecNum[tam];
+	
+	//Inicializo variables necesarias para el funcionamiento en main
+	cantN = 0;
+	
+	
+	while ((opc = menu()) != 0)
+	{
+		switch (opc)
+			{
+			case 1 : // INICIALIZAR EN 0
+					{
+						fInicializar(vecNum); // llamo la funcion incializar
+						break ; 
+					}
+				 	 	
+       	    case 2 : // LLENAR EL VECTOR
+       	    	{
+       	    		do
+       	    			{
+       	    			cout << "Ingrese la cantidad de numeros que quiere insertar en el vector: "	 << endl;
+       	    			cin >> cantN;		
+						}while(cantN >= tam );
+       	    		
+       	    	fllenar(vecNum,cantN); //llamo a la funcion cantidad a llenar.
+				break ; 	
+       	    			}
+			     	 	
+            case 3 : // MOSTRAR EL VECTOR
+					fmostrar(vecNum);
+					break ;  
+						 	
+            case 4 : // SUMA TODO EL VECTOR
+					fsumar(vecNum);
+					break ;  	 	
+            case 5 : //mando un numero el numero que mando lo compara y lo mete en el vector supongo que el usuario no va a ser tan menso de cargar mal el dato
+					cout << "Indique el numero que desea ingresar en el vector : " << endl;
+					cin>>numaux;
+					finsertar(vecNum,numaux);
+					break ;  	
+					 	
+            case 6 : 
+					 fmayor(vecNum);
+					 break ; 
+			}	
+	}
+		
+			
+
+	
+	// Declaro getch y return
+	getch();
+	return (0);
+}
+
+
+// CUERPO DE FUNCIONES
+int menu (void)
+{
+	int op;
+	cout << "*********** Menu ********** " << endl ;
+	cout << "Ingrese el caso que quiere ejecutar: " << endl;
+	cout << "1 - Inicializar el vector en 0. " << endl;
+	cout << "2 - Ingresar numeros al vector " << endl;
+	cout << "3 - mostrar el contenido del vector " << endl;
+	cout << "4 - Ejercicio 3 (Mostrar la sumatoria del vector) " << endl;
+	cout << "5 - Ejercicio 4 (Intercalar un numero en el vector ordenado y no completado) " << endl;
+	cout << "6 - Ejercicio 5 (Mostrar la posicion del numero mayor del vector) " << endl;
+	cout << "0 - Salir " << endl;
+	cin >> op;
+	return op;
+}
+
+// inicializo en cero el vector
+void fInicializar(int vecNum[])
+{
+	int i=0;
+	for (i=0;i<tam;i++)
+	{
+		vecNum[i]=0;
+		cout << "LLenando posicion :" << i+1 << endl;
+	}
+}
+
+void fllenar (int vecNum[], int cantN)
+{
+	int i=0;
+	for (i=0;i<cantN;i++)
+	{
+		cout << "Ingrese el numero para la posicion  : " << i+1 << endl; // pido numero para completar en la posicion del vector.
+		cin >> vecNum[i]; // guardo directamente en la posicion de recorrido del vector.
+	}
+}
+
+
+void fmostrar (int vecNum[])
+{
+	int i=0;
+	for (i=0; i < tam ; i++) // para i=0 y mientras no llegue al tamanio maximo del vectort lo recorro y voy mostrando el contenido
+	{
+		cout << "Para la posicion : " << i+1 << " se guardo el Numero " << vecNum[i] << endl;
+		
+	}
+}
+
+void fsumar(int vecNum[])
+{
+	int i=0,suma=0; // declaro una variable auxiliar para sumar
+	for (i=0;i<tam;i++)
+		{
+			suma=suma+vecNum[i];	// recorro el vector para sumarlo 
+		}
+	cout << "La suma de todo el vector es de : " << suma << endl;	
+}
+
+void finsertar(int vecNum[],int numaux)
+{
+	
+		int i,j; // declaro variables
+		for (i=0 ; numaux > vecNum[i] && i < tam ; i++); // mientras mi numero sea mayor y no llegue al final del vector memuevo
+		if (i == tam)
+			vecNum[i]=numaux; // si llegue al final el ultimo es mi maximo
+			else // sino
+				{
+					for (j = tam-1 ; j > i ; j--) // para j menos uno mientras sea mayor a i voy bajando
+					 vecNum[j]= vecNum[j-1]; // y corro el anterior
+					 vecNum[j]=numaux; //mando el maximo
+				}
+		
+}
+
+int fmayor(int vecNum[])
+{
+	int i , mayor,mayorpos; // declaracion de variables
+	i=0; // i arranca en cero
+	mayor=vecNum[0]; // el mayor es el primero ya que no conozco el segundo
+	mayorpos=i; // a su vez la posicion del mayor es la primera
+	for (i=1;i,tam;i++) // desde i=1 ya que la primera posicion es la mayor comparo 
+		{
+			if(vecNum[i]>mayor) 
+				{// si el mayor es mayor que tengo en la consiguiente posicion
+				mayorpos=i; // la mayorposicicon es la nueva
+				mayor=vecNum[i];
+				}
+		}
+
+	cout << "el numero mayor esta en la posicion " << mayorpos << endl ;
+	
+	
+}
