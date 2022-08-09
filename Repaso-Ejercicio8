@@ -1,0 +1,78 @@
+#include <conio.h>
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+#define TAM 4
+
+typedef struct Alumno{
+	char nombre[32];
+	int nota1;
+	int nota2;
+}Alumno;
+
+int menu (void); 
+void finicializar(Alumno[]);
+void fmostrar(Alumno[]);
+
+int main ()
+{
+	Alumno vec[TAM];
+	int op;
+	
+	
+	while ((op = menu()) != 0)
+	{
+		switch (op)
+			{
+			case 1 : 
+				{
+					finicializar(vec);
+				}
+			break ;  	
+       	    case 2 :
+       	    break ;	
+			case 3 :
+				{
+					fmostrar(vec);
+				}
+			break ;  
+			case 4 : 
+			break ;  	 	
+            case 5 :
+			break ;  	
+			case 6 :
+			break ; 
+			}	
+	}
+		
+			
+	
+	
+	
+
+	
+	
+	
+	getch();
+	return 0;
+}
+
+
+int menu (void)
+{
+	int op;
+	cout << "*********** Menu ********** " << endl ;
+	cout << "Ingrese el caso que quiere ejecutar: " << endl;
+	cout << "1 - INICIALIZAR " << endl;
+	cout << "2 -  " << endl;
+	cout << "3 - MOSTRAR " << endl;
+	cout << "4 -  " << endl;
+	cout << "5 -  " << endl;
+	cout << "6 -  " << endl;
+	cout << "0 -  " << endl;
+	cin >> op;
+	return op;
+}
+
